@@ -108,14 +108,7 @@ export default function ClientLayoutWrapper({
     return (
       <div className="relative flex min-h-screen w-full flex-col overflow-hidden bg-background text-foreground transition-colors duration-300">
         <header
-          className="theme-nav sticky top-0 z-50 transition-all duration-300"
-          style={{
-            backgroundColor:
-              theme === "dark"
-                ? "rgba(15, 15, 15, 0.95)"
-                : "rgba(255, 255, 255, 0.97)",
-            borderBottom: `1px solid ${theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"}`,
-          }}
+          className="theme-nav sticky top-0 z-50 border-b border-black/10 bg-white/95 transition-all duration-300 dark:border-white/10 dark:bg-[rgba(15,15,15,0.95)]"
         >
           <div
             className="mx-auto flex w-full items-center justify-between py-4"
