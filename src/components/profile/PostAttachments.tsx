@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, X } from "lucide-react";
 import type { PostAttachment } from "@/interfaces/feed.interface";
 import { attachmentKind, formatBytes, loadFile } from "@/lib/profile/attachments";
 import { cn } from "@/lib/utils";
@@ -44,6 +44,7 @@ function Unavailable({ name }: { name: string }) {
 
 function MediaItem({ attachment, single }: { attachment: PostAttachment; single: boolean }) {
   const { url, missing } = useAttachmentUrl(attachment.id);
+  const [open, setOpen] = useState(false);
   const kind = attachmentKind(attachment.type);
 
   if (missing) return <Unavailable name={attachment.name} />;
@@ -52,12 +53,58 @@ function MediaItem({ attachment, single }: { attachment: PostAttachment; single:
   }
 
   const frame = cn("w-full rounded-xl bg-black/5 object-contain dark:bg-white/5", single ? "max-h-96" : "aspect-video object-cover");
-  return kind === "image" ? (
-    // Blob URLs can't go through next/image.
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src={url} alt={attachment.name} className={frame} loading="lazy" decoding="async" />
-  ) : (
-    <video src={url} controls preload="metadata" playsInline aria-label={attachment.name} className={cn(frame, "bg-black")} />
+  if (kind !== "image") {
+    return <video src={url} controls preload="metadata" playsInline aria-label={attachment.name} className={cn(frame, "bg-black")} />;
+  }
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`Open photo ${attachment.name}`}
+        className="block w-full cursor-zoom-in"
+      >
+        {/* Blob URLs can't go through next/image. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={url} alt={attachment.name} className={frame} loading="lazy" decoding="async" />
+      </button>
+      {open && <Lightbox url={url} name={attachment.name} onClose={() => setOpen(false)} />}
+    </>
+  );
+}
+
+/** Full-screen photo viewer. Click outside, press Esc or use the close button to leave. */
+function Lightbox({ url, name, onClose }: { url: string; name: string; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={name}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center bg-black/90 p-4"
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close photo"
+        className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/25"
+      >
+        <X className="h-5 w-5" />
+      </button>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={url} alt={name} className="max-h-full max-w-full object-contain" onClick={(e) => e.stopPropagation()} />
+    </div>
   );
 }
 
