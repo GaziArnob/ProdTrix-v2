@@ -13,7 +13,12 @@ export const demoAuthUser = {
 };
 
 function isDemoAuthEnabled() {
-  return process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
+  return (
+    process.env.NODE_ENV === "development" ||
+    process.env.NODE_ENV === "test" ||
+    // Opt-in for a hosted demo (e.g. Vercel preview with no backend).
+    process.env.DEMO_AUTH_ENABLED === "true"
+  );
 }
 
 export function hasValidDemoCredentials(email: string, password: string) {
