@@ -101,11 +101,13 @@ export function PostCard({ post }: { post: FeedPost }) {
       )}
 
       <div className="px-4 pb-3 pt-2">
-        <h2 className="text-[15px] font-semibold leading-snug">
-          <Link href={contentHref} className="hover:underline">
-            {post.title}
-          </Link>
-        </h2>
+        {post.title && (
+          <h2 className="text-[15px] font-semibold leading-snug">
+            <Link href={contentHref} className="hover:underline">
+              {post.title}
+            </Link>
+          </h2>
+        )}
         {post.excerpt && <p className="mt-1 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>}
       </div>
 
@@ -123,7 +125,7 @@ export function PostCard({ post }: { post: FeedPost }) {
           "group relative block overflow-hidden bg-muted",
           post.coverAspect === "4:3" ? "aspect-[4/3]" : "aspect-video",
         )}
-        aria-label={`Open content: ${post.title}`}
+        aria-label={`Open content: ${post.title || "post"}`}
       >
         <Image
           src={post.coverUrl}

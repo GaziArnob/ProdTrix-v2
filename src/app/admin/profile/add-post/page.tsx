@@ -39,7 +39,7 @@ const newId = () =>
 
 /**
  * A post needs a title, but people shouldn't have to invent one. If none was typed we use the first
- * line of the text (the rest becomes the body), then the first file's name, then a generic fallback.
+ * line of the text (the rest becomes the body), then (for posts with only photos or files) no title at all.
  */
 function titleAndBody(typedTitle: string, rawBody: string, files: PendingFile[]) {
   const body = rawBody.trim();
@@ -53,8 +53,8 @@ function titleAndBody(typedTitle: string, rawBody: string, files: PendingFile[])
       ? { title: first, body: rest.join("\n").trim() }
       : { title: `${first.slice(0, MAX_TITLE).trimEnd()}…`, body };
   }
-  const fileName = files[0]?.file.name.replace(/\.[^.]+$/, "").trim();
-  return { title: fileName || "New post", body };
+  // Photos/files only: leave the title empty instead of showing the file name.
+  return { title: files.length > 0 ? "" : "New post", body };
 }
 
 export default function ProfileAddPostPage() {
@@ -334,7 +334,7 @@ export default function ProfileAddPostPage() {
             <article key={p.id} className="theme-card space-y-3 p-5">
               <div className="flex items-start gap-4">
                 <div className="min-w-0 flex-1 space-y-1">
-                  <h3 className="truncate text-sm font-semibold text-black dark:text-white">{p.title}</h3>
+                  <h3 className="truncate text-sm font-semibold text-black dark:text-white">{p.title || "Photo / file post"}</h3>
                   <p className="text-xs text-black/60 dark:text-white/40">
                     {[p.category === "academic" ? "Academic" : "Non Academic", p.subject, p.chapter, p.topic]
                       .filter(Boolean)
@@ -345,7 +345,7 @@ export default function ProfileAddPostPage() {
                 <button
                   type="button"
                   onClick={() => removePost(p)}
-                  aria-label={`Delete ${p.title}`}
+                  aria-label={`Delete ${p.title || "post"}`}
                   title="Delete post"
                   className="theme-button-secondary flex h-8 w-8 shrink-0 items-center justify-center"
                 >

@@ -65,7 +65,9 @@ export default function ContentPage() {
         <VersionBadge post={post} />
       </div>
 
-      <h1 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{post.title}</h1>
+      {post.title && (
+        <h1 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{post.title}</h1>
+      )}
 
       <div className="flex items-center gap-3">
         <Link href={creatorHref(creator.id)}>
