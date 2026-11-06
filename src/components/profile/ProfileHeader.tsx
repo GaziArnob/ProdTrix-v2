@@ -53,7 +53,7 @@ export function ProfileHeader({ tab, onTab }: { tab: ProfileTab; onTab: (tab: Pr
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/10" />
         <button
           type="button"
-          className="theme-button-secondary absolute bottom-3 right-4 z-10 flex items-center gap-2 bg-white/90 px-3 py-1.5 text-xs backdrop-blur-sm dark:bg-black/40"
+          className="rounded-full border border-border font-medium text-black dark:text-white transition-colors hover:bg-muted absolute bottom-3 right-4 z-10 flex items-center gap-2 bg-white/90 px-3 py-1.5 text-xs backdrop-blur-sm dark:bg-black/40"
         >
           <Camera className="h-3.5 w-3.5" />
           Edit cover photo
@@ -87,7 +87,7 @@ export function ProfileHeader({ tab, onTab }: { tab: ProfileTab; onTab: (tab: Pr
 
           <button
             type="button"
-            className="theme-button-secondary relative z-10 flex items-center gap-2 self-center px-5 py-2.5 text-sm font-medium sm:mt-24 sm:self-start"
+            className="rounded-full border border-border bg-transparent font-medium text-foreground transition-colors hover:bg-muted relative z-10 flex items-center gap-2 self-center px-5 py-2.5 text-sm font-medium sm:mt-24 sm:self-start"
           >
             <Pencil className="h-3.5 w-3.5" />
             Edit Profile

@@ -17,7 +17,7 @@ export function ProfilePageShell({
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/admin/profile"
-            className="theme-button-secondary inline-flex h-9 items-center gap-2 px-4 text-sm"
+            className="rounded-full border border-border bg-transparent font-medium text-foreground transition-colors hover:bg-muted inline-flex h-9 items-center gap-2 px-4 text-sm"
           >
             <ArrowLeft className="h-4 w-4" /> Profile
           </Link>

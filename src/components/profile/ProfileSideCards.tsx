@@ -38,7 +38,7 @@ export function ProfileIntro() {
       </ul>
       <Link
         href="/admin/profile/about"
-        className="theme-button-secondary flex w-full items-center justify-center py-2.5 text-sm font-medium"
+        className="rounded-full border border-border bg-transparent font-medium text-foreground transition-colors hover:bg-muted flex w-full items-center justify-center py-2.5 text-sm font-medium"
       >
         See full About
       </Link>

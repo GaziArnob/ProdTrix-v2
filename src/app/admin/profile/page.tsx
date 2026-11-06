@@ -259,7 +259,7 @@ function ContentColumn({
         <SheetTrigger asChild>
           <button
             type="button"
-            className="theme-button-secondary flex items-center justify-center gap-2 w-full py-3 text-sm"
+            className="rounded-full border border-border bg-transparent font-medium text-foreground transition-colors hover:bg-muted flex items-center justify-center gap-2 w-full py-3 text-sm"
           >
             <Plus className="h-4 w-4" />
             <span>Add {title}</span>

@@ -89,7 +89,7 @@ export default function BookReviewPage() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="theme-button-primary px-10 py-2.5 text-sm font-medium transition-all disabled:opacity-50"
+            className="rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/85 px-10 py-2.5 text-sm font-medium transition-all disabled:opacity-50"
           >
             Add Review
           </button>
@@ -127,7 +127,7 @@ export default function BookReviewPage() {
                   onClick={() => deleteBookReview(r.id)}
                   aria-label={`Delete review of ${r.bookName}`}
                   title="Delete review"
-                  className="theme-button-secondary flex h-8 w-8 shrink-0 items-center justify-center"
+                  className="rounded-full border border-border bg-transparent font-medium text-foreground transition-colors hover:bg-muted flex h-8 w-8 shrink-0 items-center justify-center"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
