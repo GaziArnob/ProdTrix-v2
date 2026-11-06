@@ -8,4 +8,5 @@ export const PROFILE = {
   email: "sifur@example.com",
   status: "Available for work",
   avatarUrl: "https://picsum.photos/seed/prodtrix-avatar/200/200",
+  coverUrl: "https://picsum.photos/seed/prodtrix-cover/1200/400",
 } as const;

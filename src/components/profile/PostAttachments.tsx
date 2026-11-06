@@ -86,6 +86,19 @@ function FileItem({ attachment }: { attachment: PostAttachment }) {
   );
 }
 
+/** Square preview of a stored photo, for the profile's Photos card. */
+export function AttachmentThumb({ attachment }: { attachment: PostAttachment }) {
+  const { url, missing } = useAttachmentUrl(attachment.id);
+  const box = "aspect-square w-full bg-gray-200 dark:bg-white/10";
+  if (missing) return <div className={box} />;
+  if (!url) return <div className={cn(box, "animate-pulse")} aria-hidden />;
+  return (
+    // Blob URLs can't go through next/image.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={url} alt={attachment.name} className={cn(box, "object-cover")} loading="lazy" decoding="async" />
+  );
+}
+
 /** Photos and videos in a grid, other files as download rows. */
 export function PostAttachments({ attachments }: { attachments: PostAttachment[] }) {
   const media = attachments.filter((a) => attachmentKind(a.type) !== "file");
